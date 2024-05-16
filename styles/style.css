@@ -164,6 +164,15 @@
   mix-blend-mode: hard-light;
 }
 
+@supports (text-stroke: 1px var(--bg-color)) or
+  (-webkit-text-stroke: 1px var(--bg-color)) {
+    .card__watermark {
+    text-shadow: none;
+    -webkit-text-stroke: 1px var(--bg-color);
+    text-stroke: 1px var(--bg-color);
+  }
+}
+
 @media (width <= 375px) {
   .card__watermark {
     top: 24px;
@@ -295,7 +304,7 @@
 }
 
 .card__icon-button:focus-visible {
-  outline: 2px solid var(--accent-color);  
+  outline: 2px solid var(--accent-color);
   transition: 0.3s ease;
 }
 
@@ -333,18 +342,6 @@
   fill: var(--heart-color);
   transition-delay: 0.05s;
   transition-duration: 0.3s;
-}
-
-.like-icon.is-liked .contour {
-  fill: var(--heart-color);
-}
-
-.like-icon.is-liked .core {
-  fill: var(--heart-color);
-}
-
-.like-icon.is-liked .main-body {
-  fill: var(--heart-color);
 }
 
 .like-icon.is-liked .core {
