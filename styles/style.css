@@ -17,7 +17,7 @@
 .page {
   padding: 100px 0;
   color: var(--accent-color);
-  font-family: var(--font-family);
+  font-family: var(--font-family), sans-serif;
   background-color: var(--bg-color);
   background-image: var(--bg-image);
   background-repeat: no-repeat;
@@ -34,8 +34,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 auto 100px;
+  margin: 0 auto;
   border: 2px solid var(--accent-color);
+  padding: 136px 0 0;
   font-family: var(--accent-font);
   font-weight: var(--fw-normal);
   font-size: 14px;
@@ -45,16 +46,16 @@
 }
 
 .header__title {
-  margin: 136px 0 25px;
   font-weight: inherit;
   font-size: clamp(0.875rem, 0.6769rem + 0.8451vw, 1.4375rem);
+  line-height: 1;
   text-align: center;
 }
 
 @media (width <= 375px) {
-  .header__title {
-    margin: 120px 0 25px;
-  }
+  .header {
+    padding: 120px 0 0;
+  }  
 }
 
 .header__logo {
@@ -62,13 +63,14 @@
   margin: 0 0 20px;
   font-weight: inherit;
   font-size: clamp(3.0625rem, 2.7104rem + 1.5023vw, 4.0625rem);
+  line-height: 1;
 }
 
 .theme-menu__list {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  margin: 0 0 25px 18px;
+  margin: 25px 0 25px 18px;
   text-align: left;
 }
 
@@ -76,15 +78,16 @@
   position: relative;
   border: none;
   padding: 0;
+  opacity: 1;
+  line-height: 1;
   text-transform: uppercase;
   background-color: transparent;
-  transition: 0.3s ease-out;
+  transition: opacity 0.3s ease;
   cursor: pointer;
 }
 
 .theme-menu__button:hover {
-  color: var(--accent-color-transparent);
-  transition: 0.3s ease;
+  opacity: 0.6;
 }
 
 .theme-menu__button::after {
@@ -92,7 +95,7 @@
   position: absolute;
   display: block;
   background-color: var(--accent-color-transparent);
-  transition-duration: 0.3s;
+  transition: transform 0.3s ease;
   transform: scaleX(0);
   transform-origin: left center;
   block-size: 2px;
@@ -103,10 +106,11 @@
 
 .theme-menu__button:focus {
   outline: none;
+  opacity: 0.6;
 }
 
 .theme-menu__button:focus-visible {
-  color: var(--accent-color-transparent);
+  opacity: 0.6;
 }
 
 .theme-menu__button:focus-visible::after {
@@ -114,16 +118,16 @@
 }
 
 .theme-menu__button:disabled {
-  position: relative;
-  color: var(--accent-color-transparent);
+  opacity: 0.6;
   pointer-events: none;
 }
 
 .theme-menu__button:disabled::before {
   content: "▶";
   position: absolute;
-  animation: pointer-animation 0.5s infinite ease-in-out reverse;
-  inset-inline-start: -20px;
+  top: 0px;
+  left: -20px;
+  animation: pointer-animation 0.5s ease-in-out infinite alternate;
 }
 
 /* Cards */
@@ -132,7 +136,7 @@
   display: flex;
   flex-direction: column;
   max-width: 696px;
-  margin: 52px auto;
+  margin: 100px auto;
   border: 2px solid var(--accent-color);
   background-color: var(--bg-color);
 }
@@ -142,6 +146,7 @@
   padding: 5px 10px;
   font-family: var(--font-family);
   font-size: 18px;
+  line-height: 1.21;
   font-variation-settings: 'wght' var(--fw-bold);
 }
 
@@ -160,6 +165,7 @@
   font-family: var(--accent-font);
   font-weight: var(--fw-normal);
   font-size: 14px;
+  line-height: 1;
   text-shadow: var(--text-shadow);
   mix-blend-mode: hard-light;
 }
@@ -183,6 +189,8 @@
 .card__image {
   display: block;
   object-fit: cover;
+  object-position: center;
+  aspect-ratio: 1 / 1;
   inline-size: 100%;
 }
 
@@ -248,6 +256,7 @@
   outline: 2px solid transparent;
   outline-offset: -2px;
   background-color: transparent;
+  transition: outline 0.3s ease;
   cursor: pointer;
   inline-size: 43px;
 }
@@ -255,14 +264,15 @@
 .card__like-button {
   padding: 10px 0;
   line-height: 12.6px;
-  background-color: transparent;
-  cursor: pointer;
   inline-size: 130px;
 }
 
 .button {
   position: relative;
   border: 2px solid var(--accent-color);
+  background-color: transparent;
+  transition: box-shadow 0.3s ease;
+  cursor: pointer;
 }
 
 .button__text {
@@ -282,7 +292,6 @@
 
 .button:focus-visible {
   box-shadow: 2px 2px 0 0 var(--accent-color);
-  transition-duration: 0.3s;
 }
 
 .button::before {
@@ -290,7 +299,7 @@
   position: absolute;
   inset: 0;
   background-color: var(--accent-color);
-  transition: 0.5s ease-in-out;
+  transition: transform 0.5s ease-in-out;
   transform: scaleX(0);
   transform-origin: left center;
 }
@@ -305,54 +314,56 @@
 
 .card__icon-button:focus-visible {
   outline: 2px solid var(--accent-color);
-  transition: 0.3s ease;
+}
+
+.like-icon .heart {
+  transform-origin: center;
+}
+
+.like-icon .sparks {
+  opacity: 0;
 }
 
 .like-icon .contour {
   fill: var(--accent-color);
+  transition: fill 0.1s linear;
 }
 
 .like-icon .core {
-  fill: var(--bg-color);
+  transition: fill 0.3s linear 0.03s;
 }
 
 .like-icon .main-body {
-  fill: var(--bg-color);
+  transition: fill 0.3s linear;
 }
 
 .like-icon:hover .core {
   fill: var(--accent-color);
   transition-delay: 0s;
-  transition-duration: 0.3s;
 }
 
 .like-icon:hover .main-body {
   fill: var(--accent-color);
   transition-delay: 0.05s;
-  transition-duration: 0.3s;
 }
 
 .like-icon:active .core {
   fill: var(--heart-color);
   transition-delay: 0s;
-  transition-duration: 0.3s;
 }
 
 .like-icon:active .main-body {
   fill: var(--heart-color);
   transition-delay: 0.05s;
-  transition-duration: 0.3s;
 }
 
 .like-icon.is-liked .core {
   fill: var(--heart-color);
-  transition-duration: 0.3s;
 }
 
 .like-icon.is-liked .main-body {
   fill: var(--heart-color);
   transition-delay: 0.05s;
-  transition-duration: 0.3s;
 }
 
 .like-icon.is-liked .contour {
@@ -362,9 +373,10 @@
 }
 
 .like-icon.is-liked .heart {
-  transform-origin: center;
   animation-name: scale;
   animation-delay: 0.1s;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
   animation-timing-function: ease-in;
   animation-duration: 0.3s;
 }
@@ -372,6 +384,8 @@
 .like-icon.is-liked .sparks {
   animation-name: sparks;
   animation-delay: 0.3s;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
   animation-timing-function: ease-in;
   animation-duration: 0.3s;
 }
@@ -392,8 +406,6 @@
   width: 100%;
   padding: 15px 15px;
   text-align: center;
-  background-color: transparent;
-  cursor: pointer;
 }
 
 .button__image {
@@ -437,7 +449,10 @@
 .dialog__content {
   display: grid;
   grid-template-columns: 0.3fr 1fr;
-  grid-template-rows: 1fr fit-content;
+}
+
+.dialog__form {
+  display: grid;
   row-gap: 30px;
 }
 
@@ -446,7 +461,6 @@
   grid-row: 2;
   padding: 12.5px 0;
   text-transform: uppercase;
-  background-color: var(--bg-color);
 }
 
 .dialog__image {
@@ -456,7 +470,7 @@
 }
 
 .dialog::backdrop {
-  background-color: rgb(0 0 0 / 80%);
+  background-color: rgb(0 0 0 / 75%);
 }
 
 @media (width <= 375px) {
