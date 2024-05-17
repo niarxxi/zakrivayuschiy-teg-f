@@ -64,6 +64,7 @@
   font-weight: inherit;
   font-size: clamp(3.0625rem, 2.7104rem + 1.5023vw, 4.0625rem);
   line-height: 1;
+  text-decoration: none;
 }
 
 .theme-menu__list {
@@ -132,11 +133,15 @@
 
 /* Cards */
 
-.cards {
+.card__main {
   display: flex;
   flex-direction: column;
+  margin: 100px auto 0;
+  gap: 50px;
   max-width: 696px;
-  margin: 100px auto;
+}
+
+.cards {
   border: 2px solid var(--accent-color);
   background-color: var(--bg-color);
 }
@@ -359,6 +364,7 @@
 
 .like-icon.is-liked .core {
   fill: var(--heart-color);
+  transition-delay: 0s;
 }
 
 .like-icon.is-liked .main-body {
@@ -393,7 +399,7 @@
 /*Footer*/
 
 .footer {
-  margin: 52px auto 0;
+  margin: 50px auto;
   background-color: var(--bg-color);
   max-inline-size: 335px;
 }
