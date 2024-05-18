@@ -399,7 +399,7 @@
 /*Footer*/
 
 .footer {
-  margin: 50px auto;
+  margin: 50px auto 0;
   background-color: var(--bg-color);
   max-inline-size: 335px;
 }
